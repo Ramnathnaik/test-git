@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Git Command Reference</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    h2 {
+      color: #555;
+      margin-top: 30px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+    }
+    p {
+      line-height: 1.6;
+      color: #444;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow-x: auto;
+    }
+    pre code {
+      font-family: monospace;
+      color: #c7254e;
+    }
+    section {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Git Command Reference</h1>
+
+  <section>
+    <h2>1. git init</h2>
+    <p>Let’s start at the very beginning.</p>
+    <pre><code>git init</code></pre>
+    <p>This command turns a regular folder into a Git repository.</p>
+    <p>Behind the scenes, it creates a hidden .git folder.</p>
+    <p>This folder holds everything Git needs—your commit history, branches, logs, and all the metadata that powers version control.</p>
+    <p>You’ll typically use git init when starting a brand-new project from scratch.</p>
+    <p>Once you run git init, Git starts watching your files for changes.</p>
+    <p>From here on, you can commit changes, create branches, roll back mistakes, and more.</p>
+    <p>But before you start making commits, there’s one important thing you need to do: tell Git who you are.</p>
+    <p>That’s where git config comes in.</p>
+  </section>
+
+  <section>
+    <h2>2. git config</h2>
+    <p>This command lets you set your name and email so Git can tag each of your commits with your identity.</p>
+    <p>Here’s how to set it up:</p>
+    <pre><code>git config --global user.name "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+    <p>The --global flag means this configuration applies to all your Git projects.</p>
+    <p>But if you want to set a different name or email just for one project, you can run the same command without the --global flag, inside that project’s folder.</p>
+    <p>This step might seem small, but it’s actually very important, especially when you’re working in a team.</p>
+    <p>Git uses this information to track who made what change.</p>
+    <p>Now let’s say you’re not starting a new project locally. But, joining an existing one hosted on a remote repository, like Github.</p>
+  </section>
+
+  <section>
+    <h2>3. git clone</h2>
+    <p>In that case, you use the git clone command followed by the repository’s URL:</p>
+    <pre><code>git clone &lt;https://github.com/user/project.git&gt;</code></pre>
+    <p>This command does two things:</p>
+    <p>It downloads the entire project, including all files, folders, branches, and commit history—so you get a complete local copy.</p>
+    <p>It sets up a connection to the remote repository, so you can easily push your changes or pull updates from others.</p>
+    <p>Once cloned, you’re ready to start working on the project locally.</p>
+    <p>Now let’s imagine a different scenario: your local Git repository isn’t connected to any remote.</p>
+    <p>In that case, Git has no idea where to push your changes.</p>
+    <p>That’s where the git remote command comes in.</p>
+  </section>
+
+  <section>
+    <h2>4. git remote</h2>
+    <p>Using git remote, you can add, view, or remove remote connections. Remote repository can be hosted anywhere like GitHub, GitLab, Bitbucket, or even your own server.</p>
+    <p>To check if your project already has any remotes configured, run:</p>
+    <pre><code>git remote -v</code></pre>
+    <p>This will list all the remote URLs your project can push to or pull from.</p>
+    <p>Example Output:</p>
+    <pre><code>origin  https://github.com/algomaster-io/git-tutorial.git (fetch)
+origin  https://github.com/algomaster-io/git-tutorial.git (push)</code></pre>
+    <p>If you need to add a new remote, use:</p>
+    <pre><code>git remote add origin &lt;https://github.com/user/project.git&gt;</code></pre>
+    <p>Here, origin is just an alias for your remote. It’s not special, but it’s a common convention for the primary remote.</p>
+    <p>Once you’ve added a remote, Git knows where to send your code when you push it.</p>
+    <p>Alright, now that we’ve covered how to set up Git locally and connect it to a remote repository, let’s move on to how you actually start working with your code and tracking changes.</p>
+  </section>
+
+  <section>
+    <h2>5. git status</h2>
+    <p>If there’s one Git command you’ll find yourself using constantly, it’s this one:</p>
+    <pre><code>git status</code></pre>
+    <p>Think of it as your project’s dashboard—a quick snapshot of everything happening in your working directory.</p>
+    <p>Whenever you’re unsure about what’s changed, what’s staged, or what’s untracked, git status gives you the full picture.</p>
+    <p>Sample Output:</p>
+    <pre><code>
+It shows you:
+
+Which files have changed and are staged for commit
+
+Which files have changed but are not staged
+
+Which files are untracked
+</code></pre>
+    <p>Before committing anything, it’s a good habit to run git status.</p>
+    <p>It helps you decide what to stage, what to skip, and what needs attention.</p>
+    <p>Once you’ve reviewed the changes, your next step is usually to stage the right files using git add.</p>
+  </section>
+
+  <section>
+    <h2>6. git add</h2>
+    <p>When you run git add, you’re telling Git to include this in the next snapshot.</p>
+    <p>Just editing a file isn’t enough. Git doesn’t track your changes automatically.</p>
+    <p>Until you run git add, those changes are invisible to Git when it comes time to commit.</p>
+    <p>You can stage a specific file by running git add filename:</p>
+    <pre><code>git add filename</code></pre>
+    <p>Or, if you want to stage everything that’s changed in the current directory, run:</p>
+    <pre><code>git add .</code></pre>
+    <p>git add is like packing your code changes into a box and getting them ready for delivery.</p>
+    <p>Once your changes are staged, it's time to lock them in with a commit with git commit command.</p>
+  </section>
+
+  <section>
+    <h2>7. git commit</h2>
+    <p>Think of git commit as hitting “Save” in the world of version control.</p>
+    <p>It takes a snapshot of your codebase at that point in time along with a message describing what changed and why.</p>
+    <p>You just run:</p>
+    <pre><code>git commit -m "Add login feature"</code></pre>
+    <p>That message isn’t just a label, it’s a log of what you did.</p>
+    <p>Later, when you’re looking through your project’s history (or fixing bugs), clear commit messages will save you and your teammates a lot of time.</p>
+    <p>If you’re working on files that Git already knows about (i.e., they’ve been committed before), you can skip the git add step using:</p>
+    <pre><code>git commit -a -m "Update login error handling"</code></pre>
+    <p>The -a flag tells Git to automatically stage all modified tracked files before committing.</p>
+    <p>But note—this only works for files Git is already tracking.</p>
+    <p>If you’ve created a new file or only want to include specific files in the commit, you still need to run git add first.</p>
+    <p>Sometimes, you commit too early or want to change the commit message.</p>
+    <p>In that case, you can use:</p>
+    <pre><code>git commit --amend</code></pre>
+    <p>This lets you either edit the commit message or include additional changes (as long as they’ve been staged with git add).</p>
+    <p>git add and git commit are local operations. Your changes are saved on your machine only. No one else can see them yet.</p>
+  </section>
+
+  <section>
+    <h2>8. git push</h2>
+    <p>To share your commits with others, you use:</p>
+    <pre><code>git push</code></pre>
+    <p>The git push command sends your commits from your local repository to a remote one, like GitHub or GitLab.</p>
+    <p>It’s how you sync your changes with the central project.</p>
+    <p>Here’s a basic example:</p>
+    <pre><code>git push origin main</code></pre>
+    <p>This command pushes your changes to the main branch of your remote repository. Now anyone else working on the project can see your updates.</p>
+    <p>Quick note: In most real-world projects, you don’t push directly to the main branch. Instead, you push to a separate feature branch, and then create a pull request or code review before merging into main.</p>
+    <p>Sometimes, when you're working on a project with others, someone else may have already pushed their changes before you.</p>
+    <p>That’s why, before you push your work, it’s a good idea to pull the latest changes so your local copy is up to date and you don’t accidentally overwrite someone else’s work.</p>
+    <p>To do that, we use git pull command.</p>
+  </section>
+
+  <section>
+    <h2>9. git pull</h2>
+    <p>This command does two things in one step:</p>
+    <p>It fetches the most recent commits from the remote repository.</p>
+    <p>Then, it merges those commits into your current local branch.</p>
+    <p>You can also specify the branch that you want to pull from. It will merge them into whatever branch you’re currently on.</p>
+    <pre><code>git pull origin main</code></pre>
+    <p>But what if you don’t want to merge anything just yet?</p>
+    <p>Maybe you just want to see what’s changed on the remote without affecting your local work.</p>
+    <p>That’s what git fetch is for.</p>
+  </section>
+
+  <section>
+    <h2>10. git fetch</h2>
+    <pre><code>git fetch origin</code></pre>
+    <p>This command contacts the remote and downloads all the latest changes—new commits, branches, etc.—but it doesn’t touch your working directory.</p>
+    <p>Your current branch remains exactly the same.</p>
+    <p>If you're on the main branch and want to see what new commits are on the remote origin/main, run:</p>
+    <pre><code>git log HEAD..origin/main</code></pre>
+    <p>This shows the commits that exist on the remote but not on your local branch.</p>
+    <p>Sample Output:</p>
+    <pre><code></code></pre>
+    <p>git fetch gives you full control—you fetch first, review, and only merge when you're ready.</p>
+    <p>Speaking of branches—let’s look at how to create and work with them next.</p>
+  </section>
+
+  <section>
+    <h2>11. git branch</h2>
+    <p>When you’re working on a new feature or fixing a bug, it’s best to keep that work separate from the main codebase.</p>
+    <p>That’s where branches come in.</p>
+    <p>To create a new branch we simply run:</p>
+    <pre><code>git branch new-feature</code></pre>
+    <p>This creates a branch called new-feature , giving you a safe space where you can make changes without affecting the main branch.</p>
+    <p>Once you're done, you can merge your changes back into the main branch or open a pull request for review.</p>
+    <p>To see a list of all your local branches, just run:</p>
+    <pre><code>git branch</code></pre>
+    <p>Sample Output:</p>
+    <pre><code>  dev
+* main
+  feature/login
+  hotfix/navbar-bug</code></pre>
+    <p>The branch you’re currently on will be marked with an asterisk (*).</p>
+    <p>But if you have multiple branches…How do you switch between them?</p>
+    <p>That’s where git checkout command comes in.</p>
+  </section>
+
+  <section>
+    <h2>12. git checkout</h2>
+    <pre><code>git checkout new-feature</code></pre>
+    <p>This switches your working directory to the new-feature branch. It’s like opening up a different version of your project focused on a specific task.</p>
+    <p>If you want to create a new branch and switch to it in one step, you can use:</p>
+    <pre><code>git checkout -b new-feature</code></pre>
+    <p>But git checkout isn’t just for switching branches. It’s a versatile command you can use in other ways too:</p>
+    <p>Explore a past commit by checking out its hash:</p>
+    <pre><code>git checkout 4f27a6e</code></pre>
+    <p>Switch back to your previous branch:</p>
+    <pre><code>git checkout -</code></pre>
+    <p>Discard changes and restore a file to its last committed state:</p>
+    <pre><code>git checkout -- style.css</code></pre>
+    <p>Checkout a specific file from another branch:</p>
+    <pre><code>git checkout feature-branch src/app.js</code></pre>
+    <p>Because git checkout tries to do a lot of different things, Git later introduced a cleaner alternative:</p>
+    <p>git switch</p>
+    <p>This command focuses purely on switching branches.</p>
+    <p>Once you’re done working on a branch and want to bring your changes back into the main project, you use: git merge.</p>
+  </section>
+
+  <section>
+    <h2>13. git merge</h2>
+    <p>git merge combines the changes from one branch into another.</p>
+    <p>Here’s an example:</p>
+    <pre><code>git merge new-feature</code></pre>
+    <p>This tells Git to take the changes from the new-feature branch and combine them into the branch you are currently on.</p>
+    <p>If the changes don’t overlap, Git will merge everything automatically.</p>
+    <p>But if both branches have modified the same parts of a file, Git won’t know which version to keep.</p>
+    <p>That’s called a merge conflict, and Git will pause and ask you to manually resolve it.</p>
+    <p>Sample Merge Conflict Output:</p>
+    <pre><code></code></pre>
+    <p>Git marks the conflicting files. If you open one (e.g., src/App.js), you’ll see conflict markers like this:</p>
+    <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+console.log("Welcome to the main branch");
+=======
+console.log("Login feature initialized");
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+    <p>You now have to manually resolve the conflict, remove the conflict markers, and keep the correct code.</p>
+    <p>After resolving:</p>
+    <pre><code>git add src/App.js src/components/Header.js
+git commit</code></pre>
+    <p>This final commit will complete the merge.</p>
+    <p>Now, while merging is a safe and common way to combine changes, it has a small drawback—it can clutter your commit history.</p>
+    <p>You may end up with lots of merge commits, especially if you’re merging frequently.</p>
+  </section>
+
+  <section>
+    <h2>14. git rebase</h2>
+    <p>If you like keeping your commit history neat and linear, git rebase is the command for you.</p>
+    <p>Unlike git merge, which combines branches and often creates an extra merge commit, git rebase replays your commits on top of another branch as if you wrote them after the latest changes.</p>
+    <pre><code>* 3f9e1b2 Add login form validation
+* 1a2d3f4 Create login page UI
+* a12cd3e Update homepage banner
+* 91b2ea3 Initial commit</code></pre>
+    <p>This makes your commit history look like a straight line instead of a mess of merges.</p>
+    <p>Let’s say you’re working on a feature branch, and main has moved forward.</p>
+    <p>You can update your feature branch with the latest changes from main using:</p>
+    <pre><code>git rebase main</code></pre>
+    <p>This takes all the commits from your current branch and places them on top of the latest commit on main, one by one.</p>
+    <p>This results into a cleaner, more linear project history that’s easier to read and reason about.</p>
+    <p>Note: Remember to not rebase branches that others are working on. Because rebase rewrites commit history, it can create confusion or conflicts for your teammates.</p>
+    <p>When used properly, git rebase is a powerful way to keep your project history clean, clear, and easy to follow.</p>
+  </section>
+
+  <section>
+    <h2>15. git log</h2>
+    <p>Once you’ve made a few commits, you’ll probably want to look back and see what changed, when, and by whom.</p>
+    <p>That’s where git log comes in.</p>
+    <pre><code>git log</code></pre>
+    <p>This command gives you a detailed history of commits showing commit hashes, author names, dates, and commit messages.</p>
+    <p>Sample Output:</p>
+    <pre><code>commit 3f9e1b2a8c5b7894dc8d39f12c4f271c51a2f0e4
+Author: Jane Doe &lt;jane@example.com&gt;
+Date:   Mon May 13 10:45:12 2024 +0530
+
+    Add login form validation
+
+commit 1a2d3f4e6b0c34b18ff9d1b8e20d4b6129a15a78
+Author: Jane Doe &lt;jane@example.com&gt;
+Date:   Sun May 12 17:08:45 2024 +0530
+
+    Create login page UI
+
+commit a12cd3e6aa719c3b32c29fd2f1123d2b31434cc9
+Author: John Smith &lt;john@example.com&gt;
+Date:   Sat May 11 14:30:59 2024 +0530
+
+    Update homepage banner</code></pre>
+    <p>If you want a more compact view, try:</p>
+    <pre><code>git log --oneline</code></pre>
+    <p>Sample Output:</p>
+    <pre><code>3f9e1b2 Add login form validation
+1a2d3f4 Create login page UI
+a12cd3e Update homepage banner</code></pre>
+    <p>This shows the commit timeline in one-line-per-commit format.</p>
+    <p>If you want to visualize branches and merges, you can run:</p>
+    <pre><code>git log --graph</code></pre>
+    <p>Sample Output:</p>
+    <pre><code>* commit a1b2c3d (HEAD -&gt; main, origin/main)
+| Author: Jane Doe &lt;jane@example.com&gt;
+| Date:   Tue May 13 10:23:45 2025 -0700
+|
+|     Fix pagination bug
+|
+* commit b2c3d4e
+| Author: John Smith &lt;john@example.com&gt;
+|
+|     Add dark mode toggle
+|
+*   commit c3d4e5f
+|\  Merge: d4e5f6g e5f6g7h
+| | Author: Jane Doe &lt;jane@example.com&gt;
+| |
+| |     Merge feature/api-v2 into main
+| |
+| * commit d4e5f6g (feature/api-v2)
+| |
+| |     Complete API v2
+|/
+* commit f6g7h8i
+|
+|     Update docs</code></pre>
+    <p>This adds a branching diagram next to your commits, making it easier to see how your project evolved over time.</p>
+    <p>git log is super useful when you’re tracking down bugs , or just reviewing your work.</p>
+    <p>And speaking of reviewing—before you commit, it’s always smart to check what’s changed since your last commit.</p>
+    <p>That’s where git diff command comes in.</p>
+  </section>
+
+  <section>
+    <h2>16. git diff</h2>
+    <p>git diff gives you a line-by-line comparison between your working directory and the last commit.</p>
+    <pre><code>git diff</code></pre>
+    <p>Sample Output:</p>
+    <pre><code>diff --git a/src/App.js b/src/App.js
+index 3a5b2c1..7d8e9f2 100644
+--- a/src/App.js
++++ b/src/App.js
+@@ -12,7 +12,10 @@ function App() {
+   return (
+     &lt;div className="App"&gt;
+-      &lt;h1&gt;Welcome to My App&lt;/h1&gt;
++      &lt;h1&gt;Welcome to My Awesome App&lt;/h1&gt;
++      &lt;p&gt;Start by logging in to continue.&lt;/p&gt;
+     &lt;/div&gt;
+   );
+ }</code></pre>
+    <p>It highlights what’s been added, removed, or modified so you know exactly what you’re about to commit.</p>
+    <p>You can also use git diff to compare changes between branches or specific commits:</p>
+    <pre><code>git diff branch1..branch2</code></pre>
+    <p>This shows what’s different between two branches—great for code reviews or deciding whether a branch is ready to merge.</p>
+  </section>
+
+  <section>
+    <h2>17. git stash</h2>
+    <p>Sometimes you’re in the middle of working on something and suddenly, you need to switch branches or handle a different task.</p>
+    <p>But your changes aren’t ready to commit yet.</p>
+    <p>You can use git stash command to temporarily save all your changes both staged and unstaged.</p>
+    <pre><code>git stash</code></pre>
+    <p>It’s like putting your work in a drawer so you can come back to it later.</p>
+    <p>When you're ready to pick up where you left off, just run:</p>
+    <pre><code>git stash apply</code></pre>
+    <p>This brings back your stashed changes while keeping the stash in case you need it again.</p>
+    <p>But, if you want to apply the stash and remove it at the same time, use:</p>
+    <pre><code>git stash pop</code></pre>
+    <p>Now, let’s say you've made a mistake and want to undo a commit or reset your branch.</p>
+    <p>That’s where git reset comes into play.</p>
+  </section>
+
+  <section>
+    <h2>18. git reset</h2>
+    <p>git reset is one of the most powerful commands for rolling back changes.</p>
+    <p>It moves the current branch’s HEAD pointer to a previous commit—essentially rewinding your project to an earlier state.</p>
+    <p>Depending on how much you want to undo, you can use git reset in three different ways:</p>
+    <p>Soft Reset</p>
+    <pre><code>git reset --soft HEAD~1</code></pre>
+    <p>Moves the HEAD back by one commit, but keeps all your changes staged.</p>
+    <p>Use this when you want to adjust a previous commit or fix a message.</p>
+    <p>Mixed Reset</p>
+    <pre><code>git reset HEAD~1</code></pre>
+    <p>Moves the HEAD back and unstages the changes, but keeps them in your working directory.</p>
+    <p>Perfect when you want to start over on staging but don’t want to lose your code.</p>
+    <p>Hard Reset</p>
+    <pre><code>git reset --hard HEAD~1</code></pre>
+    <p>This one completely wipes out changes in both the staging area and working directory.</p>
+    <p>Use it with caution as it permanently deletes uncommitted work.</p>
+    <p>If you’ve already pushed a commit to a shared repository and need to undo something, git revert is your safer bet.</p>
+  </section>
+
+  <section>
+    <h2>19. git revert</h2>
+    <p>If you’ve already pushed a commit to a shared repository and need to undo something, git revert is the safer option.</p>
+    <p>Unlike git reset, which rewrites history, git revert preserves the history by creating a new commit that reverses the effects of a previous one.</p>
+    <p>Here’s how you use it:</p>
+    <pre><code>git revert &lt;commit-hash&gt;</code></pre>
+    <p>This doesn’t delete the original commit—it simply adds a new one that undoes the changes from that specific commit.</p>
+    <p>What if you only want to copy a specific commit from one branch to another without merging everything?</p>
+    <p>That’s where git cherry-pick command comes in.</p>
+  </section>
+
+  <section>
+    <h2>20. git cherry-pick</h2>
+    <pre><code>git cherry-pick &lt;commit-hash&gt;</code></pre>
+    <p>This command takes a single commit from another branch and applies it to your current branch, as if you made that change yourself.</p>
+    <p>It’s super useful when you need a bug fix or feature from another branch but don’t want to pull in everything.</p>
+  </section>
+</body>
+</html>
